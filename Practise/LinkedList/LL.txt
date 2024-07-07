@@ -1,0 +1,128 @@
+Certainly! Let's add comments to your `LL` class to explain each part of the implementation. I'll elaborate on each method to make it clearer.
+
+```java
+public class LL {
+    // Inner class Node to represent nodes in the linked list
+    private class Node {
+        private int value;  // Value stored in the node
+        private Node next;  // Reference to the next node
+
+        // Constructor to initialize a node with a value
+        public Node(int _value) {
+            value = _value;
+        }
+
+        // Constructor to initialize a node with a value and a next node reference
+        public Node(int _value, Node _next) {
+            value = _value;
+            next = _next;
+        }
+    }
+
+    private Node head;  // Reference to the first node in the linked list
+    private Node tail;  // Reference to the last node in the linked list
+    private int size;   // Size of the linked list
+
+    // Constructor to initialize an empty linked list
+    public LL() {
+        size = 0;
+    }
+
+    // Method to insert a node at the beginning of the linked list
+    public void insertFirst(int val) {
+        Node node = new Node(val);  // Create a new node with the given value
+        node.next = head;  // Set the next reference of the new node to the current head
+        head = node;  // Update the head to point to the new node
+
+        if (tail == null) {
+            tail = head;  // If the list was empty, update the tail to point to the new node
+        }
+        size++;  // Increment the size of the linked list
+    }
+
+    // Method to insert a node at the end of the linked list
+    public void insertLast(int val) {
+        Node node = new Node(val);  // Create a new node with the given value
+        if (tail == null) {
+            head = node;  // If the list was empty, set both head and tail to the new node
+            tail = node;
+        } else {
+            tail.next = node;  // Set the next reference of the current tail to the new node
+            tail = node;  // Update the tail to point to the new node
+        }
+        size++;  // Increment the size of the linked list
+    }
+
+    // Method to insert a node at a specific index in the linked list
+    public void insert(int value, int index) {
+        if (index == 0) {
+            insertFirst(value);  // If index is 0, insert at the beginning of the list
+            return;
+        }
+        if (index == size) {
+            insertLast(value);  // If index is equal to size, insert at the end of the list
+            return;
+        }
+
+        Node temp = head;
+
+        // Traverse the list to find the node just before the index
+        for (int i = 1; i < index; i++) {
+            temp = temp.next;  // Move to the next node
+        }
+
+        Node node = new Node(value);  // Create a new node with the given value
+        node.next = temp.next;  // Set the next reference of the new node to the next node of temp
+        temp.next = node;  // Set the next reference of temp to the new node
+
+        size++;  // Increment the size of the linked list
+    }
+    
+    // Method to display the elements of the linked list
+    public void display() {
+        Node temp = head;
+
+        while (temp != null) {
+            System.out.print(temp.value + " => ");  // Print the value of the current node
+            temp = temp.next;  // Move to the next node
+        }
+        System.out.println("End");  // Print "End" to mark the end of the linked list
+    }
+}
+```
+
+### Comments Explanation:
+
+1. **Node Class**:
+   - `Node` is an inner class representing nodes in the linked list.
+   - It has two constructors: one initializes a node with a value (`_value`), and the other initializes it with both a value and a reference to the next node (`_value`, `_next`).
+
+2. **LL Class**:
+   - `head`, `tail`, and `size` are private variables of the `LL` class.
+   - `head` points to the first node, `tail` points to the last node, and `size` keeps track of the number of nodes in the linked list.
+
+3. **Constructor (`LL()`)**:
+   - Initializes an empty linked list with size `0`.
+
+4. **`insertFirst(int val)` Method**:
+   - Inserts a node with value `val` at the beginning of the linked list (`head`).
+   - If the list was empty (`tail == null`), sets `tail` to point to the new node as well.
+   - Increases `size` by 1 after insertion.
+
+5. **`insertLast(int val)` Method**:
+   - Inserts a node with value `val` at the end of the linked list (`tail`).
+   - Handles both empty and non-empty list cases.
+   - Increases `size` by 1 after insertion.
+
+6. **`insert(int value, int index)` Method**:
+   - Inserts a node with value `value` at a specific `index` in the linked list.
+   - Special cases for inserting at the beginning (`index == 0`) or at the end (`index == size`).
+   - Traverses the list to find the node just before the insertion point (`temp`), then inserts the new node after `temp`.
+   - Increases `size` by 1 after insertion.
+
+7. **`display()` Method**:
+   - Displays the values of all nodes in the linked list, starting from `head` and ending with `tail`.
+   - Prints each node's value followed by `=>` to indicate the connection between nodes.
+   - Ends with `End` to signify the end of the linked list.
+
+These comments provide a comprehensive explanation of each part of your `LL` class, explaining how nodes are inserted at the beginning, end, or at a specific index in the linked list, as well as how to display the elements of the linked list.
